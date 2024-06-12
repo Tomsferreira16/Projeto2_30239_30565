@@ -1,0 +1,53 @@
+{
+  "users": [
+  {
+      "id": 0,
+      "username": "admin",
+      "email": "admin@hinoportuna.pt",
+      "password": "admin1"
+  },
+  {
+      "id": 1,
+      "username": "guest",
+      "email": "guest@hinoportuna.pt",
+      "password": "guest1"
+  }
+  ],
+  "instruments": [
+    {
+      "id": 1,
+      "name": "guitarra",
+      "type": "cordas"
+    },
+    {
+      "id": 2,
+      "name": "bandolim",
+      "type": "cordas"
+    },
+    {
+      "id": 3,
+      "name": "congas",
+      "type": "percussao"
+    },
+    {
+      "id": 4,
+      "name": "contra_baixo",
+      "type": "cordas"
+    },
+    {
+      "id": 5,
+      "name": "acordeao",
+      "type": "ar"
+    },
+    {
+      "id": 6,
+      "name": "cavaquinho",
+      "type": "cordas"
+    },
+    {
+      "id": 7,
+      "name": "cajon",
+      "type": "percussao"
+    }
+  ]
+}

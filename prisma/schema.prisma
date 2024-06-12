@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Utilizador {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  email      String   @unique
+  password   String
+  admin_priv Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("utilizador")
+}
+
+model Corda {
+  id        Int      @id @default(autoincrement())
+  nota      String
+  numero    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  instrumento Instrumento_Corda[]
+
+  @@map("corda")
+}
+
+model Instrumento_Corda {
+  instrumento_id Int
+  corda_id       Int
+
+  instrumento Instrumento @relation(fields: [instrumento_id], references: [id])
+  corda       Corda       @relation(fields: [corda_id], references: [id])
+
+  @@id([instrumento_id, corda_id])
+  @@map("instrumento_corda")
+}
+
+model Instrumento {
+  id                    Int                 @id @default(autoincrement())
+  nome                  String
+  tipo                  Int
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  corda                 Instrumento_Corda[]
+  tipo_instrumento      Tipo_Instrumento    @relation(fields: [tipo], references: [instrumento_id])
+  acessorio_instrumento Tipo_Acessorio[]
+
+  @@map("instrumento")
+}
+
+model Tipo_Instrumento {
+  instrumento_id Int    @id @default(autoincrement())
+  nome           String @unique
+
+  instrumento Instrumento[]
+
+  @@map("tipo_instrumento")
+}
+
+model Acessorio {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  instrumento Tipo_Acessorio[]
+
+  @@map("acessorio")
+}
+
+model Tipo_Acessorio {
+  instrumento_id Int
+  acessorio_id   Int
+
+  acessorio   Acessorio   @relation(fields: [acessorio_id], references: [id])
+  instrumento Instrumento @relation(fields: [instrumento_id], references: [id])
+
+  @@id([instrumento_id, acessorio_id])
+  @@map("tipo_acessorio")
+}
